@@ -82,11 +82,11 @@ public class Shop {
      * @return the string representing the shop's items available for purchase and their prices.
      */
     public String inventory() {
-        String str = "Water: " + WATER_COST + " gold\n";
-        str += "Rope: " + ROPE_COST + " gold\n";
-        str += "Machete: " + MACHETE_COST + " gold\n";
-        str += "Horse: " + HORSE_COST + " gold\n";
-        str += "Boat: " + BOAT_COST + " gold\n";
+        String str = Color.PURPLE_BRIGHT + "Water: " + WATER_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        str += Color.PURPLE_BRIGHT +"Rope: " + ROPE_COST  + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        str += Color.PURPLE_BRIGHT +"Machete: " + MACHETE_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        str += Color.PURPLE_BRIGHT +"Horse: " + HORSE_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        str += Color.PURPLE_BRIGHT +"Boat: " + BOAT_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
 
         return str;
     }
@@ -99,7 +99,7 @@ public class Shop {
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
         if (customer.buyItem(item, costOfItem)) {
-            System.out.println("Ye' got yerself a " + item + ". Come again soon.");
+            System.out.println("Ye' got yerself a " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ". Come again soon.");
         } else {
             System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
         }

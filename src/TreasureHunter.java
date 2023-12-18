@@ -48,7 +48,7 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 10);
 
-        System.out.print("Hard mode? (y/n): ");
+        System.out.print(Color.RED_BOLD + "Hard mode? (y/n): " + Color.RESET);
         String hard = SCANNER.nextLine().toLowerCase();
         if (hard.equals("y")) {
             hardMode = true;
@@ -100,11 +100,11 @@ public class TreasureHunter {
             System.out.println("***");
             System.out.println(hunter);
             System.out.println(currentTown);
-            System.out.println("(B)uy something at the shop.");
-            System.out.println("(S)ell something at the shop.");
-            System.out.println("(M)ove on to a different town.");
-            System.out.println("(L)ook for trouble!");
-            System.out.println("Give up the hunt and e(X)it.");
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "(B)uy something at the shop." + Color.RESET);
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "(S)ell something at the shop."+ Color.RESET);
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "(M)ove on to a different town."+ Color.RESET);
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "(L)ook for trouble!"+ Color.RESET);
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "Give up the hunt and e(X)it."+ Color.RESET);
             System.out.println();
             System.out.print("What's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
@@ -130,7 +130,7 @@ public class TreasureHunter {
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {
-            System.out.println("Yikes! That's an invalid option! Try again.");
+            System.out.println(Color.RED_BOLD_BRIGHT + "Yikes! That's an invalid option! Try again." + Color.RESET);
         }
     }
 }

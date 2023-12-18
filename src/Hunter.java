@@ -145,9 +145,9 @@ public class Hunter {
      * @return A string representation of the hunter.
      */
     public String toString() {
-        String str = hunterName + " has " + gold + " gold";
+        String str = hunterName + " has " + Color.YELLOW_BRIGHT + gold + " gold" + Color.RESET;
         if (!kitIsEmpty()) {
-            str += " and " + getInventory();
+            str += " and " + Color.PURPLE_BOLD_BRIGHT + getInventory() + Color.RESET;
         }
         return str;
     }
