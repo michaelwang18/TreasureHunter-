@@ -58,7 +58,6 @@ public class TreasureHunter {
         if (hard.equals("test")) {
             testMode = true;
             hunter = new Hunter(name, 100);
-            kit =
         }
     }
 
