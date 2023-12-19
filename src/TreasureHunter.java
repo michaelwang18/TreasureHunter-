@@ -17,6 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean testMode;
+    private String[] treasures = {"Crown","Trophy","Gem","Dust"};
 
     /**
      * Constructs the Treasure Hunter game.
@@ -88,7 +89,7 @@ public class TreasureHunter {
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness, treasures);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
@@ -105,7 +106,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x") && hunter.getGold() > 0) {
+        while (!choice.equals("x") && hunter.getGold() > 0 && !hunter.hasAllTreasure()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -114,6 +115,7 @@ public class TreasureHunter {
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(B)uy something at the shop." + Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(S)ell something at the shop."+ Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(M)ove on to a different town."+ Color.RESET);
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "(H)unt for treasure!"+ Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(L)ook for trouble!"+ Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "Give up the hunt and e(X)it."+ Color.RESET);
             System.out.println();
@@ -139,6 +141,8 @@ public class TreasureHunter {
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
+        } else if (choice.equals("h")) {
+            currentTown.huntForTreasure();
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {

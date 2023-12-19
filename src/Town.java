@@ -12,15 +12,20 @@ public class Town {
     private String printMessage;
     private boolean toughTown;
 
+    private boolean searched;
+    private String treasure;
+
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
      *
      * @param shop The town's shoppe.
      * @param toughness The surrounding terrain.
      */
-    public Town(Shop shop, double toughness) {
+    public Town(Shop shop, double toughness, String[] treasures) {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        boolean searched = false;
+        treasure = treasures[(int) (Math.random() * treasures.length)];
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -88,6 +93,18 @@ public class Town {
      * The chances of finding a fight and winning the gold are based on the toughness of the town.<p>
      * The tougher the town, the easier it is to find a fight, and the harder it is to win one.
      */
+
+    public void huntForTreasure() {
+        if (!searched) {
+            System.out.println( Color.WHITE_BOLD_BRIGHT + "You found a... \n"  + Color.GREEN_BOLD_BRIGHT + treasure + Color.WHITE_BOLD_BRIGHT + "!" + Color.RESET);
+            searched = true;
+            hunter.addTreasure(treasure);
+        } else {
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "You have already searched this town for treasure!" + Color.RESET);
+        }
+    }
+
+
     public void lookForTrouble() {
         double noTroubleChance;
         if (toughTown) {

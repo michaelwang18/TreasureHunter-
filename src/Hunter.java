@@ -8,6 +8,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] treasures;
     private int gold;
 
     /**
@@ -22,6 +23,7 @@ public class Hunter {
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
         kit = new String[5]; // only 5 possible items can be stored in kit
+        treasures = new String[3]; // only 5 possible items can be stored in kit
         gold = startingGold;
     }
 
@@ -109,6 +111,17 @@ public class Hunter {
         return false;
     }
 
+
+    public boolean addTreasure(String treasure) {
+        if (!hasItemInTreasure(treasure) && !(treasure.equals("Dust"))) {
+            int idx = emptyPositionInTreasure();
+            this.treasures[idx] = treasure;
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Checks if the kit Array has the specified item.
      *
@@ -122,8 +135,26 @@ public class Hunter {
                 return true;
             }
         }
+        return false;
+    }
+
+    public boolean hasItemInTreasure(String item) {
+        for (String tmpItem : treasures) {
+            if (item.equals(tmpItem)) {
+                // early return
+                return true;
+            }
+        }
 
         return false;
+    }
+
+    public boolean hasAllTreasure(){
+        if (hasItemInTreasure("Crown") && hasItemInTreasure("Trophy") && hasItemInTreasure("Gem")){
+            return true;
+        } else {
+            return false;
+        }
     }
 
      /**
@@ -145,6 +176,19 @@ public class Hunter {
         return printableKit;
     }
 
+    public String getTreasures() {
+        String printableTreasure = "";
+        String space = " ";
+
+        for (String item : treasures) {
+            if (item != null) {
+                printableTreasure += item + space;
+            }
+        }
+
+        return printableTreasure;
+    }
+
     public int getGold() {
         return gold;
     }
@@ -156,6 +200,9 @@ public class Hunter {
         String str = hunterName + " has " + Color.YELLOW_BRIGHT + gold + " gold" + Color.RESET;
         if (!kitIsEmpty()) {
             str += " and " + Color.PURPLE_BOLD_BRIGHT + getInventory() + Color.RESET;
+        }
+        if (!treasuresIsEmpty()) {
+            str += "\nand has found the treasures: " + Color.GREEN_BOLD_BRIGHT + getTreasures() + Color.RESET;
         }
         return str;
     }
@@ -189,7 +236,15 @@ public class Hunter {
                 return false;
             }
         }
+        return true;
+    }
 
+    private boolean treasuresIsEmpty() {
+        for (String string : treasures) {
+            if (string != null) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -201,6 +256,16 @@ public class Hunter {
     private int emptyPositionInKit() {
         for (int i = 0; i < kit.length; i++) {
             if (kit[i] == null) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private int emptyPositionInTreasure() {
+        for (int i = 0; i < treasures.length; i++) {
+            if (treasures[i] == null) {
                 return i;
             }
         }
