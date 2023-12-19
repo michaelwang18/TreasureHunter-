@@ -58,6 +58,11 @@ public class TreasureHunter {
         if (hard.equals("test")) {
             testMode = true;
             hunter = new Hunter(name, 100);
+            hunter.addItem("water");
+            hunter.addItem("rope");
+            hunter.addItem("machete");
+            hunter.addItem("horse");
+            hunter.addItem("boat");
         }
     }
 
