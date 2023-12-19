@@ -145,6 +145,10 @@ public class Hunter {
         return printableKit;
     }
 
+    public int getGold() {
+        return gold;
+    }
+
     /**
      * @return A string representation of the hunter.
      */

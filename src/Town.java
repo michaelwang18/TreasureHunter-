@@ -96,6 +96,7 @@ public class Town {
             noTroubleChance = 0.33;
         }
 
+
         if (Math.random() > noTroubleChance) {
             printMessage = Color.RED_BRIGHT + Color.WHITE_BOLD_BRIGHT + "You couldn't find any trouble" + Color.RESET;
         } else {
