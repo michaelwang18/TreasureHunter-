@@ -1,3 +1,4 @@
+import javax.print.CancelablePrintJob;
 import java.util.Scanner;
 
 /**
@@ -124,7 +125,12 @@ public class TreasureHunter {
             choice = SCANNER.nextLine().toLowerCase();
             processChoice(choice);
         }
-        System.out.println("Until next time... bye bye");
+        if (hunter.hasAllTreasure()){
+            System.out.println(Color.YELLOW_BOLD_BRIGHT + "Congrats you collected all the treasures of the land" + Color.RESET);
+        } else if (hunter.getGold() <= 0){
+            System.out.println(Color.RED_BACKGROUND_BRIGHT + "You ran out of money and is forced to stop your hunt and dreams." + Color.RESET);
+        }
+        System.out.println("\nUntil next time... bye bye");
     }
 
     /**
