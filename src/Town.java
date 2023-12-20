@@ -70,8 +70,8 @@ public class Town {
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
                 printMessage += "\nUnfortunately, you lost your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ".";
+                return false;
             }
-
             return true;
         }
 
@@ -86,6 +86,7 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
+        printMessage = "You left the shop";
     }
 
     /**
