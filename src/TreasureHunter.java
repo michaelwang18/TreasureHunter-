@@ -18,6 +18,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean testMode;
+    private String mode;
     private String[] treasures = {"Crown","Trophy","Gem","Dust"};
 
     /**
@@ -52,12 +53,20 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 10);
 
-        System.out.print(Color.RED_BOLD + "Hard mode? (y/n): " + Color.RESET);
-        String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")) {
+        System.out.print(Color.RED_BOLD + "Hard/Normal/Easy Mode? (h/n/e): " + Color.RESET);
+        String difficulty = SCANNER.nextLine().toLowerCase();
+        if (difficulty.equals("h")) {
             hardMode = true;
+            mode = "h";
         }
-        if (hard.equals("test")) {
+        if (difficulty.equals("e")) {
+            hardMode = true;
+            mode = "e";
+        }
+        if (difficulty.equals("s")){
+            mode = "s";
+        }
+        if (difficulty.equals("test")) {
             testMode = true;
             hunter = new Hunter(name, 100);
             hunter.addItem("water");
@@ -66,6 +75,7 @@ public class TreasureHunter {
             hunter.addItem("horse");
             hunter.addItem("boat");
             hunter.addItem("boots");
+            hunter.addItem("shovel");
         }
     }
 
@@ -86,12 +96,12 @@ public class TreasureHunter {
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
-        Shop shop = new Shop(markdown);
+        Shop shop = new Shop(markdown,mode);
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness, treasures);
+        currentTown = new Town(shop, toughness, treasures, mode);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
@@ -118,6 +128,7 @@ public class TreasureHunter {
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(S)ell something at the shop."+ Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(M)ove on to a different town."+ Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(H)unt for treasure!"+ Color.RESET);
+            System.out.println(Color.WHITE_BOLD_BRIGHT + "(D)ig for gold!"+ Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "(L)ook for trouble!"+ Color.RESET);
             System.out.println(Color.WHITE_BOLD_BRIGHT + "Give up the hunt and e(X)it."+ Color.RESET);
             System.out.println();
@@ -150,6 +161,8 @@ public class TreasureHunter {
             currentTown.lookForTrouble();
         } else if (choice.equals("h")) {
             currentTown.huntForTreasure();
+        } else if (choice.equals("d")) {
+            currentTown.digForGold();
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {

@@ -11,8 +11,10 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private String mode;
 
     private boolean searched;
+    private boolean digged;
     private String treasure;
 
     /**
@@ -21,10 +23,12 @@ public class Town {
      * @param shop The town's shoppe.
      * @param toughness The surrounding terrain.
      */
-    public Town(Shop shop, double toughness, String[] treasures) {
+    public Town(Shop shop, double toughness, String[] treasures, String mode) {
         this.shop = shop;
         this.terrain = getNewTerrain();
         boolean searched = false;
+        boolean digged = false;
+        this.mode = mode;
         treasure = treasures[(int) (Math.random() * treasures.length)];
 
         // the hunter gets set using the hunterArrives method, which
@@ -67,7 +71,7 @@ public class Town {
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
             printMessage = "You used your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + " to cross the " +  Color.CYAN_BRIGHT + terrain.getTerrainName() + Color.RESET + ".";
-            if (checkItemBreak()) {
+            if (halfChance() && !(mode.equals("e"))) {
                 hunter.removeItemFromKit(item);
                 printMessage += "\nUnfortunately, you lost your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ".";
                 return false;
@@ -105,6 +109,24 @@ public class Town {
         }
     }
 
+    public void digForGold() {
+        if (!digged && hunter.hasItemInKit("shovel")) {
+            if (halfChance()){
+                int gold = (int) (Math.random() * 20) + 1;
+                System.out.println( Color.WHITE_BOLD_BRIGHT + "You found ... "  + Color.YELLOW_BOLD_BRIGHT + gold + " gold" + Color.WHITE_BOLD_BRIGHT + "!" + Color.RESET);
+                hunter.changeGold(gold);
+            } else {
+                System.out.println(Color.WHITE_BOLD_BRIGHT + "You found nothing (You dug but only found dirt)" + Color.RESET);
+            }
+            digged = true;
+        } else {
+            if (!(hunter.hasItemInKit("shovel"))){
+                System.out.println(Color.WHITE_BOLD_BRIGHT + "You don't got a shovel?!" + Color.RESET);
+            } else if (hunter.hasItemInKit("shovel")) {
+                System.out.println(Color.WHITE_BOLD_BRIGHT + "You have already dug for gold here!" + Color.RESET);
+            }
+        }
+    }
 
     public void lookForTrouble() {
         double noTroubleChance;
@@ -163,7 +185,7 @@ public class Town {
      *
      * @return true if the item broke.
      */
-    private boolean checkItemBreak() {
+    private boolean halfChance() {
         double rand = Math.random();
         return (rand < 0.5);
     }

@@ -14,12 +14,16 @@ public class Shop {
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
     private static final int BOOTS_COST = 8;
+    private static final int SHOVEL_COST = 8;
+    private static final int SWORD_COST = 0;
+
 
     // static variables
     private static final Scanner SCANNER = new Scanner(System.in);
 
     // instance variables
     private double markdown;
+    private String mode;
     private Hunter customer;
 
     /**
@@ -27,7 +31,7 @@ public class Shop {
      *
      * @param markdown Percentage of markdown for selling items in decimal format.
      */
-    public Shop(double markdown) {
+    public Shop(double markdown, String mode) {
         this.markdown = markdown;
         customer = null; // is set in the enter method
     }
@@ -89,6 +93,10 @@ public class Shop {
         str += Color.PURPLE_BRIGHT +"Horse: " + HORSE_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
         str += Color.PURPLE_BRIGHT +"Boat: " + BOAT_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
         str += Color.PURPLE_BRIGHT +"Boots: " + BOOTS_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        str += Color.PURPLE_BRIGHT +"Shovel: " + SHOVEL_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        if (mode.equals("s")){
+            str += Color.RED_BOLD_BRIGHT +"Sword: " + SWORD_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        }
 
         return str;
     }
@@ -100,10 +108,15 @@ public class Shop {
      */
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
-        if (customer.buyItem(item, costOfItem)) {
+        if (customer.buyItem(item, costOfItem) && !(customer.hasItemInKit("sword"))) {
             System.out.println("Ye' got yerself a " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ". Come again soon.");
         } else {
-            System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
+            if (customer.hasItemInKit("sword")){
+                System.out.println(Color.RED_BOLD_BRIGHT + "PlEASE... I just want to live, just take.");
+                System.out.println("You Obtained..." + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET);
+            } else {
+                System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
+            }
         }
     }
 
@@ -155,6 +168,8 @@ public class Shop {
             return BOAT_COST;
         } else if (item.equals("boots")) {
             return BOOTS_COST;
+        } else if (item.equals("shovel")) {
+            return SHOVEL_COST;
         } else {
             return 0;
         }
