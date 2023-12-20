@@ -69,7 +69,7 @@ public class Town {
             printMessage = "You used your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + " to cross the " +  Color.CYAN_BRIGHT + terrain.getTerrainName() + Color.RESET + ".";
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + " broke.";
+                printMessage += "\nUnfortunately, you lost your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ".";
             }
 
             return true;
