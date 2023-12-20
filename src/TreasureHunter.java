@@ -17,7 +17,6 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
-    private boolean testMode;
     private String mode;
     private String[] treasures = {"Crown","Trophy","Gem","Dust"};
 
@@ -28,8 +27,6 @@ public class TreasureHunter {
         // these will be initialized in the play method
         currentTown = null;
         hunter = null;
-        hardMode = false;
-        testMode = false;
     }
 
     /**
@@ -56,18 +53,16 @@ public class TreasureHunter {
         System.out.print(Color.RED_BOLD + "Hard/Normal/Easy Mode? (h/n/e): " + Color.RESET);
         String difficulty = SCANNER.nextLine().toLowerCase();
         if (difficulty.equals("h")) {
-            hardMode = true;
             mode = "h";
         }
         if (difficulty.equals("e")) {
-            hardMode = true;
+            hunter = new Hunter(name, 20);
             mode = "e";
         }
         if (difficulty.equals("s")){
             mode = "s";
         }
         if (difficulty.equals("test")) {
-            testMode = true;
             hunter = new Hunter(name, 100);
             hunter.addItem("water");
             hunter.addItem("rope");
@@ -85,14 +80,20 @@ public class TreasureHunter {
     private void enterTown() {
         double markdown = 0.5;
         double toughness = 0.4;
-        if (hardMode) {
+        if (mode.equals("h")) {
             // in hard mode, you get less money back when you sell items
             markdown = 0.25;
 
             // and the town is "tougher"
             toughness = 0.75;
         }
+        if (mode.equals("e")) {
+            // in hard mode, you get less money back when you sell items
+            markdown = 1;
 
+            // and the town is "tougher"
+            toughness = 0.25;
+        }
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
@@ -118,7 +119,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x") && hunter.getGold() > 0 && !hunter.hasAllTreasure()) {
+        while (!choice.equals("x") && hunter.getGold() >= 0 && !hunter.hasAllTreasure()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -138,7 +139,7 @@ public class TreasureHunter {
         }
         if (hunter.hasAllTreasure()){
             System.out.println(Color.YELLOW_BOLD_BRIGHT + "Congrats you collected all the treasures of the land" + Color.RESET);
-        } else if (hunter.getGold() <= 0){
+        } else if (hunter.getGold() < 0){
             System.out.println(Color.RED_BACKGROUND_BRIGHT + "You ran out of money and is forced to stop your hunt and dreams." + Color.RESET);
         }
         System.out.println("\nUntil next time... bye bye");

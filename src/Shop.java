@@ -33,6 +33,7 @@ public class Shop {
      */
     public Shop(double markdown, String mode) {
         this.markdown = markdown;
+        this.mode = mode;
         customer = null; // is set in the enter method
     }
 
