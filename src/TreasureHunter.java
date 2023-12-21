@@ -60,6 +60,7 @@ public class TreasureHunter {
             mode = "e";
         }
         if (difficulty.equals("s")){
+            hunter = new Hunter("Samurai " + name, 20);
             mode = "s";
         }
         if (difficulty.equals("test")) {
@@ -93,6 +94,13 @@ public class TreasureHunter {
 
             // and the town is "tougher"
             toughness = 0.25;
+        }
+        if (mode.equals("s")) {
+            // in hard mode, you get less money back when you sell items
+            markdown = 1;
+
+            // and the town is "tougher"
+            toughness = 0;
         }
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance

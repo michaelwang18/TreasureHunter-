@@ -53,14 +53,21 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == 0) {
+            if (cost == 0 && !(item.equals("sword"))) {
                 System.out.println("We ain't got none of those.");
             } else {
-                System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
-                String option = SCANNER.nextLine().toLowerCase();
+                if (customer.hasItemInKit("sword")) {
+                    System.out.println(Color.RED_BOLD_BRIGHT + "PlEASE... I just want to live, just.. just take it" +
+                            ".");
+                    System.out.println("You Obtained... " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET);
+                        hunter.addItem(item);
+                } else {
+                    System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
+                    String option = SCANNER.nextLine().toLowerCase();
 
-                if (option.equals("y")) {
-                    buyItem(item);
+                    if (option.equals("y")) {
+                        buyItem(item);
+                    }
                 }
             }
         } else {
@@ -111,15 +118,10 @@ public class Shop {
         int costOfItem = checkMarketPrice(item, true);
         if (customer.buyItem(item, costOfItem) && !(customer.hasItemInKit("sword"))) {
             System.out.println("Ye' got yerself a " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ". Come again soon.");
-        } else {
-            if (customer.hasItemInKit("sword")){
-                System.out.println(Color.RED_BOLD_BRIGHT + "PlEASE... I just want to live, just take.");
-                System.out.println("You Obtained..." + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET);
-            } else {
+        } else if (!(item.equals("sword"))){
                 System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
             }
         }
-    }
 
     /**
      * A pathway method that lets the Hunter sell an item.
