@@ -70,16 +70,16 @@ public class Town {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
-            printMessage = "You used your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + " to cross the " +  Color.CYAN_BRIGHT + terrain.getTerrainName() + Color.RESET + ".";
+            printMessage = "You used your " + textColor.PURPLE_BOLD_BRIGHT + item + textColor.RESET + " to cross the " +  textColor.CYAN_BRIGHT + terrain.getTerrainName() + textColor.RESET + ".";
             if (halfChance() && !(mode.equals("e"))) {
                 hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, you lost your " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ".";
+                printMessage += "\nUnfortunately, you lost your " + textColor.PURPLE_BOLD_BRIGHT + item + textColor.RESET + ".";
                 return false;
             }
             return true;
         }
 
-        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + Color.PURPLE_BOLD_BRIGHT + terrain.getNeededItem() + Color.RESET + ".";
+        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + textColor.PURPLE_BOLD_BRIGHT + terrain.getNeededItem() + textColor.RESET + ".";
         return false;
     }
 
@@ -101,11 +101,11 @@ public class Town {
 
     public void huntForTreasure() {
         if (!searched) {
-            System.out.println( Color.WHITE_BOLD_BRIGHT + "You found a... \n"  + Color.GREEN_BOLD_BRIGHT + treasure + Color.WHITE_BOLD_BRIGHT + "!" + Color.RESET);
+            System.out.println( textColor.WHITE_BOLD_BRIGHT + "You found a... \n"  + textColor.GREEN_BOLD_BRIGHT + treasure + textColor.WHITE_BOLD_BRIGHT + "!" + textColor.RESET);
             searched = true;
             hunter.addTreasure(treasure);
         } else {
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "You have already searched this town for treasure!" + Color.RESET);
+            System.out.println(textColor.WHITE_BOLD_BRIGHT + "You have already searched this town for treasure!" + textColor.RESET);
         }
     }
 
@@ -113,17 +113,17 @@ public class Town {
         if (!digged && hunter.hasItemInKit("shovel")) {
             if (halfChance()){
                 int gold = (int) (Math.random() * 20) + 1;
-                System.out.println( Color.WHITE_BOLD_BRIGHT + "You found ... "  + Color.YELLOW_BOLD_BRIGHT + gold + " gold" + Color.WHITE_BOLD_BRIGHT + "!" + Color.RESET);
+                System.out.println( textColor.WHITE_BOLD_BRIGHT + "You found ... "  + textColor.YELLOW_BOLD_BRIGHT + gold + " gold" + textColor.WHITE_BOLD_BRIGHT + "!" + textColor.RESET);
                 hunter.changeGold(gold);
             } else {
-                System.out.println(Color.WHITE_BOLD_BRIGHT + "You found nothing (You dug but only found dirt)" + Color.RESET);
+                System.out.println(textColor.WHITE_BOLD_BRIGHT + "You found nothing (You dug but only found dirt)" + textColor.RESET);
             }
             digged = true;
         } else {
             if (!(hunter.hasItemInKit("shovel"))){
-                System.out.println(Color.WHITE_BOLD_BRIGHT + "You don't got a shovel?!" + Color.RESET);
+                System.out.println(textColor.WHITE_BOLD_BRIGHT + "You don't got a shovel?!" + textColor.RESET);
             } else if (hunter.hasItemInKit("shovel")) {
-                System.out.println(Color.WHITE_BOLD_BRIGHT + "You have already dug for gold here!" + Color.RESET);
+                System.out.println(textColor.WHITE_BOLD_BRIGHT + "You have already dug for gold here!" + textColor.RESET);
             }
         }
     }
@@ -138,24 +138,24 @@ public class Town {
 
 
         if (Math.random() > noTroubleChance) {
-            printMessage = Color.RED_BRIGHT + Color.WHITE_BOLD_BRIGHT + "You couldn't find any trouble" + Color.RESET;
+            printMessage = textColor.RED_BRIGHT + textColor.WHITE_BOLD_BRIGHT + "You couldn't find any trouble" + textColor.RESET;
         } else {
-            printMessage = Color.RED_BRIGHT + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Color.RESET;
+            printMessage = textColor.RED_BRIGHT + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + textColor.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
             if (Math.random() > noTroubleChance) {
-                printMessage += Color.RED_BRIGHT + "Okay, stranger! You proved yer mettle. Here, take my gold." + Color.RESET;
-                printMessage += Color.RED_BRIGHT + "\nYou won the brawl and receive " + Color.YELLOW_BRIGHT + goldDiff + " gold." + Color.RESET;
+                printMessage += textColor.RED_BRIGHT + "Okay, stranger! You proved yer mettle. Here, take my gold." + textColor.RESET;
+                printMessage += textColor.RED_BRIGHT + "\nYou won the brawl and receive " + textColor.YELLOW_BRIGHT + goldDiff + " gold." + textColor.RESET;
                 hunter.changeGold(goldDiff);
             } else {
-                printMessage += Color.RED_BRIGHT + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
-                printMessage += Color.RED_BRIGHT + "\nYou lost the brawl and pay " + Color.YELLOW_BRIGHT + goldDiff + " gold." + Color.RESET;
+                printMessage += textColor.RED_BRIGHT + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
+                printMessage += textColor.RED_BRIGHT + "\nYou lost the brawl and pay " + textColor.YELLOW_BRIGHT + goldDiff + " gold." + textColor.RESET;
                 hunter.changeGold(-goldDiff);
             }
         }
     }
 
     public String toString() {
-        return "This nice little town is surrounded by " + Color.CYAN_BOLD + terrain.getTerrainName() + Color.RESET + ".";
+        return "This nice little town is surrounded by " + textColor.CYAN_BOLD + terrain.getTerrainName() + textColor.RESET + ".";
     }
 
     /**

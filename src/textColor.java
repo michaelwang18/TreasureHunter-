@@ -1,4 +1,4 @@
-public class Color { //Originally Console Colors
+public class textColor { //Originally Console Colors
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset
 

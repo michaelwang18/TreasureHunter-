@@ -1,4 +1,4 @@
-import javax.print.CancelablePrintJob;
+import java.awt.*;
 import java.util.Scanner;
 
 /**
@@ -19,6 +19,7 @@ public class TreasureHunter {
     private boolean hardMode;
     private String mode;
     private String[] treasures = {"Crown","Trophy","Gem","Dust"};
+    private OutputWindow display;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -32,25 +33,27 @@ public class TreasureHunter {
     /**
      * Starts the game; this is the only public method
      */
-    public void play() {
+    public void play(OutputWindow display) {
+        this.display = display;
         welcomePlayer();
         enterTown();
         showMenu();
+
     }
 
     /**
      * Creates a hunter object at the beginning of the game and populates the class member variable with it.
      */
     private void welcomePlayer() {
-        System.out.println("Welcome to TREASURE HUNTER!");
-        System.out.println("Going hunting for the big treasure, eh?");
-        System.out.print("What's your name, Hunter? ");
+        display.addTextToWindow("Welcome to TREASURE HUNTER!", Color.yellow);
+        display.addTextToWindow("\ngoing hunting for the big treasure, eh?");
+        display.addTextToWindow("\nWhat's ye name, Hunter? ");
         String name = SCANNER.nextLine().toLowerCase();
 
         // set hunter instance variable
         hunter = new Hunter(name, 10);
 
-        System.out.print(Color.RED_BOLD + "Hard/Normal/Easy Mode? (h/n/e): " + Color.RESET);
+        display.addTextToWindow("\n\n\nHard/Normal/Easy Mode? (h/n/e): ",Color.red);
         String difficulty = SCANNER.nextLine().toLowerCase();
         if (difficulty.equals("h")) {
             mode = "h";
@@ -128,27 +131,26 @@ public class TreasureHunter {
         String choice = "";
 
         while (!choice.equals("x") && hunter.getGold() >= 0 && !hunter.hasAllTreasure()) {
-            System.out.println();
-            System.out.println(currentTown.getLatestNews());
-            System.out.println("***");
-            System.out.println(hunter);
-            System.out.println(currentTown);
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "(B)uy something at the shop." + Color.RESET);
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "(S)ell something at the shop."+ Color.RESET);
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "(M)ove on to a different town."+ Color.RESET);
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "(H)unt for treasure!"+ Color.RESET);
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "(D)ig for gold!"+ Color.RESET);
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "(L)ook for trouble!"+ Color.RESET);
-            System.out.println(Color.WHITE_BOLD_BRIGHT + "Give up the hunt and e(X)it."+ Color.RESET);
-            System.out.println();
-            System.out.print("What's your next move? ");
+            display.clear();
+            display.addTextToWindow(currentTown.getLatestNews());
+            display.addTextToWindow("***");
+            display.addTextToWindow("\n" + hunter);
+            display.addTextToWindow("\n" + currentTown);
+            display.addTextToWindow("\n(B)uy something at the shop.");
+            display.addTextToWindow("\n(S)ell something at the shop.");
+            display.addTextToWindow("\n(M)ove on to a different town.");
+            display.addTextToWindow("\n(H)unt for treasure!");
+            display.addTextToWindow("\n(D)ig for gold!");
+            display.addTextToWindow("\n(L)ook for trouble!");
+            display.addTextToWindow("\nGive up the hunt and e(X)it.");
+            System.out.print("\n\nWhat's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
             processChoice(choice);
         }
         if (hunter.hasAllTreasure()){
-            System.out.println(Color.YELLOW_BOLD_BRIGHT + "Congrats you collected all the treasures of the land" + Color.RESET);
+            System.out.println(textColor.YELLOW_BOLD_BRIGHT + "Congrats you collected all the treasures of the land" + textColor.RESET);
         } else if (hunter.getGold() < 0){
-            System.out.println(Color.RED_BACKGROUND_BRIGHT + "You ran out of money and is forced to stop your hunt and dreams." + Color.RESET);
+            System.out.println(textColor.RED_BACKGROUND_BRIGHT + "You ran out of money and is forced to stop your hunt and dreams." + textColor.RESET);
         }
         System.out.println("\nUntil next time... bye bye");
     }
@@ -175,7 +177,7 @@ public class TreasureHunter {
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {
-            System.out.println(Color.RED_BOLD_BRIGHT + "Yikes! That's an invalid option! Try again." + Color.RESET);
+            System.out.println(textColor.RED_BOLD_BRIGHT + "Yikes! That's an invalid option! Try again." + textColor.RESET);
         }
     }
 }

@@ -57,9 +57,9 @@ public class Shop {
                 System.out.println("We ain't got none of those.");
             } else {
                 if (customer.hasItemInKit("sword")) {
-                    System.out.println(Color.RED_BOLD_BRIGHT + "PlEASE... I just want to live, just.. just take it" +
+                    System.out.println(textColor.RED_BOLD_BRIGHT + "PlEASE... I just want to live, just.. just take it" +
                             ".");
-                    System.out.println("You Obtained... " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET);
+                    System.out.println("You Obtained... " + textColor.PURPLE_BOLD_BRIGHT + item + textColor.RESET);
                         hunter.addItem(item);
                 } else {
                     System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
@@ -95,15 +95,15 @@ public class Shop {
      * @return the string representing the shop's items available for purchase and their prices.
      */
     public String inventory() {
-        String str = Color.PURPLE_BRIGHT + "Water: " + WATER_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
-        str += Color.PURPLE_BRIGHT +"Rope: " + ROPE_COST  + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
-        str += Color.PURPLE_BRIGHT +"Machete: " + MACHETE_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
-        str += Color.PURPLE_BRIGHT +"Horse: " + HORSE_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
-        str += Color.PURPLE_BRIGHT +"Boat: " + BOAT_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
-        str += Color.PURPLE_BRIGHT +"Boots: " + BOOTS_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
-        str += Color.PURPLE_BRIGHT +"Shovel: " + SHOVEL_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+        String str = textColor.PURPLE_BRIGHT + "Water: " + WATER_COST + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
+        str += textColor.PURPLE_BRIGHT +"Rope: " + ROPE_COST  + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
+        str += textColor.PURPLE_BRIGHT +"Machete: " + MACHETE_COST + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
+        str += textColor.PURPLE_BRIGHT +"Horse: " + HORSE_COST + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
+        str += textColor.PURPLE_BRIGHT +"Boat: " + BOAT_COST + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
+        str += textColor.PURPLE_BRIGHT +"Boots: " + BOOTS_COST + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
+        str += textColor.PURPLE_BRIGHT +"Shovel: " + SHOVEL_COST + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
         if (mode.equals("s")){
-            str += Color.RED_BOLD_BRIGHT +"Sword: " + SWORD_COST + Color.YELLOW_BOLD_BRIGHT +" gold\n" + Color.RESET;
+            str += textColor.RED_BOLD_BRIGHT +"Sword: " + SWORD_COST + textColor.YELLOW_BOLD_BRIGHT +" gold\n" + textColor.RESET;
         }
 
         return str;
@@ -117,7 +117,7 @@ public class Shop {
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
         if (customer.buyItem(item, costOfItem) && !(customer.hasItemInKit("sword"))) {
-            System.out.println("Ye' got yerself a " + Color.PURPLE_BOLD_BRIGHT + item + Color.RESET + ". Come again soon.");
+            System.out.println("Ye' got yerself a " + textColor.PURPLE_BOLD_BRIGHT + item + textColor.RESET + ". Come again soon.");
         } else if (!(item.equals("sword"))){
                 System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
             }
